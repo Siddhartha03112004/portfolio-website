@@ -1,4 +1,4 @@
-import { GraduationCap, School } from "lucide-react";
+import { GraduationCap } from "lucide-react";
 import { education } from "../data/portfolio";
 import { Reveal } from "./Reveal";
 import { SectionHeading } from "./SectionHeading";
@@ -9,58 +9,42 @@ export function Education() {
       <div className="mx-auto max-w-3xl px-5 sm:px-8">
         <SectionHeading eyebrow="Education" title="Academic background." />
 
-        <div className="relative">
-          <div className="absolute left-[19px] top-2 bottom-2 w-px bg-gradient-to-b from-white/15 via-white/10 to-transparent" />
-
-          {education.map((entry, index) => {
-            const isPrimary = entry.size === "primary";
-            const Icon = isPrimary ? GraduationCap : School;
-
-            return (
-              <div key={entry.id} className="relative pl-14 pb-10 last:pb-0">
-                <Reveal
-                  delay={index * 0.1}
-                  className="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-base-900"
-                >
-                  <Icon size={17} className={isPrimary ? "text-accent-300" : "text-ink-500"} strokeWidth={1.75} />
-                </Reveal>
-
-                <Reveal
-                  delay={index * 0.1 + 0.05}
-                  className={`rounded-2xl border bg-white/[0.02] ${
-                    isPrimary ? "border-white/10 p-6 sm:p-7" : "border-white/6 p-5"
-                  }`}
-                >
-                  <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-1.5 mb-2">
-                    <h3 className={`font-bold text-ink-50 ${isPrimary ? "text-lg sm:text-xl" : "text-base"}`}>
-                      {entry.school}
-                    </h3>
-                    <span className="font-mono text-xs text-ink-500 shrink-0">{entry.period}</span>
-                  </div>
-                  <p className="text-sm text-ink-400 mb-1">{entry.fullName}</p>
-                  <p className={`text-accent-300 font-medium ${isPrimary ? "text-sm sm:text-base" : "text-sm"}`}>
-                    {entry.degree}
-                  </p>
-
-                  {entry.detail && <p className="text-sm text-ink-200 mt-2 font-medium">{entry.detail}</p>}
-
-                  {entry.coursework && (
-                    <div className="flex flex-wrap gap-1.5 mt-4">
-                      {entry.coursework.map((course) => (
-                        <span
-                          key={course}
-                          className="rounded-md bg-white/5 px-2.5 py-1 text-xs text-ink-400"
-                        >
-                          {course}
-                        </span>
-                      ))}
-                    </div>
-                  )}
-                </Reveal>
+        <Reveal className="rounded-2xl border border-white/10 bg-white/[0.02] p-6 sm:p-8">
+          <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-6">
+            <div className="flex items-start gap-4">
+              <span className="inline-flex h-14 w-14 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-base-900 text-accent-300">
+                <GraduationCap size={26} strokeWidth={1.75} />
+              </span>
+              <div>
+                <h3 className="text-lg sm:text-xl font-bold text-ink-50 leading-snug">{education.degree}</h3>
+                <p className="text-sm text-ink-200 font-medium mt-1.5">CGPA: {education.cgpa}</p>
+                <p className="font-mono text-xs text-ink-400 mt-2 leading-relaxed">{education.school}</p>
+                <p className="text-xs text-ink-500 mt-1">{education.location}</p>
               </div>
-            );
-          })}
-        </div>
+            </div>
+
+            <div className="text-left sm:text-right shrink-0 sm:pl-4">
+              <span className="inline-block rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 font-mono text-xs text-ink-200">
+                {education.period}
+              </span>
+              <p className="font-mono text-xs text-ink-500 mt-2">Graduating Class {education.graduatingClass}</p>
+            </div>
+          </div>
+
+          <div className="border-t border-white/8 pt-6">
+            <p className="font-mono text-xs tracking-wider uppercase text-ink-500 mb-3">Key Coursework</p>
+            <div className="flex flex-wrap gap-2">
+              {education.coursework.map((course) => (
+                <span
+                  key={course}
+                  className="rounded-lg border border-white/8 bg-white/[0.02] px-3 py-1.5 text-sm text-ink-200"
+                >
+                  {course}
+                </span>
+              ))}
+            </div>
+          </div>
+        </Reveal>
       </div>
     </section>
   );

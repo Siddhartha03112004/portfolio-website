@@ -170,22 +170,12 @@ export const skillGroups = [
   },
 ];
 
-export const education = [
-  {
-    id: "dav",
-    school: "DAV Centenary Public School",
-    fullName: "New Delhi — Paschim Vihar",
-    degree: "Class XII",
-    period: "2022",
-    size: "secondary",
-  },
-  {
-    id: "usict",
-    school: "USICT, GGSIPU",
-    fullName: "University School of Information, Communication & Technology",
-    degree: "B.Tech — Electronics & Communication Engineering",
-    period: "Nov 2022 – May 2026",
-    coursework: ["Data Structures & Algorithms", "DBMS", "Operating Systems", "Computer Networks", "OOP"],
-    size: "primary",
-  },
-];
+export const education = {
+  degree: "B.Tech in Electronics & Communication Engineering",
+  cgpa: "7.33",
+  school: "University School of Information, Communication and Technology (USICT), GGSIPU",
+  location: "Delhi, India",
+  period: "Nov 2022 – May 2026",
+  graduatingClass: "2026",
+  coursework: ["Data Structures & Algorithms", "DBMS", "Operating Systems", "Computer Networks", "OOP"],
+};
