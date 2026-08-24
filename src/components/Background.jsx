@@ -1,4 +1,4 @@
-import { motion, useReducedMotion } from "framer-motion";
+import { motion, useReducedMotion, useScroll, useSpring, useTransform } from "framer-motion";
 
 // Fixed positions so the twinkle layer doesn't reshuffle on re-render.
 const particles = [
@@ -11,6 +11,17 @@ const particles = [
   { top: "85%", left: "15%", size: 2, delay: 2.6 },
   { top: "8%", left: "48%", size: 2, delay: 1.5 },
   { top: "58%", left: "78%", size: 2, delay: 2.9 },
+];
+
+// Positions snapped to the 44px grid so the pulses read as the grid itself
+// lighting up at an intersection, not as unrelated sparkle.
+const gridPoints = [
+  { top: "16%", left: "26%", delay: 0.5, duration: 5.5 },
+  { top: "34%", left: "64%", delay: 3.2, duration: 6.5 },
+  { top: "52%", left: "14%", delay: 5.8, duration: 5 },
+  { top: "68%", left: "82%", delay: 2.1, duration: 7 },
+  { top: "80%", left: "46%", delay: 7.4, duration: 6 },
+  { top: "26%", left: "90%", delay: 4.6, duration: 5.8 },
 ];
 
 const blobs = [
@@ -51,23 +62,39 @@ const shootingStars = [
   star("10%", "42%", 210, 110, 1.2, 8.4, 7),
 ];
 
-// Sophisticated dark backdrop: base color, fine grid, drifting glows, a
-// continuous flowing-star layer, and a subtle noise texture. Fixed and
-// behind everything, never interactive. Motion is disabled under
-// prefers-reduced-motion.
+// Sophisticated dark backdrop: base color, a slowly-panning grid, drifting
+// glows, occasional grid-intersection pulses, a continuous flowing-star
+// layer, and a subtle noise texture. Fixed and behind everything, never
+// interactive. Motion is disabled under prefers-reduced-motion.
 export function Background() {
   const prefersReducedMotion = useReducedMotion();
+  const { scrollYProgress } = useScroll();
+  const rawScrollShift = useTransform(scrollYProgress, [0, 1], [0, -70]);
+  const scrollShift = useSpring(rawScrollShift, { stiffness: 60, damping: 30 });
 
   return (
-    <div className="fixed inset-0 -z-10 overflow-hidden bg-base-950 bg-grid bg-noise" aria-hidden="true">
-      {blobs.map((blob, i) => (
-        <motion.div
-          key={i}
-          className={`absolute rounded-full blur-[130px] will-change-transform ${blob.className}`}
-          animate={prefersReducedMotion ? undefined : blob.animate}
-          transition={{ duration: blob.duration, repeat: Infinity, ease: "easeInOut" }}
-        />
-      ))}
+    <div className="fixed inset-0 -z-10 overflow-hidden bg-base-950 bg-noise" aria-hidden="true">
+      <div className="absolute inset-0 bg-grid" />
+
+      <motion.div style={{ y: prefersReducedMotion ? 0 : scrollShift }}>
+        {blobs.map((blob, i) => (
+          <motion.div
+            key={i}
+            className={`absolute rounded-full blur-[130px] will-change-transform ${blob.className}`}
+            animate={prefersReducedMotion ? undefined : blob.animate}
+            transition={{ duration: blob.duration, repeat: Infinity, ease: "easeInOut" }}
+          />
+        ))}
+      </motion.div>
+
+      {!prefersReducedMotion &&
+        gridPoints.map((p, i) => (
+          <span
+            key={i}
+            className="grid-point h-1.5 w-1.5"
+            style={{ top: p.top, left: p.left, animationDelay: `${p.delay}s`, animationDuration: `${p.duration}s` }}
+          />
+        ))}
 
       {particles.map((p, i) => (
         <motion.span

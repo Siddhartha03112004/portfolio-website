@@ -33,13 +33,16 @@ export function About() {
             </p>
 
             <div className="flex flex-wrap gap-2 pt-2">
-              {aboutHighlights.map((tag) => (
-                <span
+              {aboutHighlights.map((tag, index) => (
+                <Reveal
+                  as="span"
                   key={tag}
-                  className="rounded-full border border-white/8 bg-white/[0.03] px-3 py-1.5 text-sm text-ink-200"
+                  delay={0.15 + index * 0.03}
+                  y={10}
+                  className="inline-block rounded-full border border-white/8 bg-white/[0.03] px-3 py-1.5 text-sm text-ink-200 transition-colors duration-300 hover:border-accent-400/30 hover:bg-white/5 hover:text-ink-50"
                 >
                   {tag}
-                </span>
+                </Reveal>
               ))}
             </div>
           </Reveal>
@@ -49,7 +52,7 @@ export function About() {
               <Reveal
                 key={stat.label}
                 delay={0.15 + index * 0.08}
-                className="rounded-2xl border border-white/8 bg-white/[0.02] p-6 hover:border-white/15 hover:bg-white/[0.04] transition-colors"
+                className="rounded-2xl border border-white/8 bg-white/[0.02] p-6 transition-all duration-300 hover:-translate-y-1 hover:border-white/15 hover:bg-white/[0.04] hover:shadow-[0_10px_28px_-14px_rgba(129,140,248,0.4)]"
               >
                 <p className="text-2xl sm:text-3xl font-bold gradient-text mb-1">
                   <AnimatedCounter value={stat.value} />

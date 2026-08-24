@@ -64,7 +64,7 @@ export function ExperienceStory({ story }) {
           {story.tags.map((tag) => (
             <span
               key={tag}
-              className="rounded-md bg-white/5 px-2 py-1 text-[11px] font-mono text-ink-400"
+              className="rounded-md bg-white/5 px-2 py-1 text-[11px] font-mono text-ink-400 transition-colors duration-300 hover:bg-white/10 hover:text-ink-200"
             >
               {tag}
             </span>

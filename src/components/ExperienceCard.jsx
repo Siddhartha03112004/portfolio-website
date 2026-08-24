@@ -7,7 +7,7 @@ export function ExperienceCard({ experience, index }) {
   return (
     <div className="relative pl-12 sm:pl-16">
       <div className="absolute left-0 top-1.5 flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center">
-        <Reveal delay={index * 0.1} className="relative flex h-full w-full items-center justify-center">
+        <Reveal direction="scale" delay={index * 0.15} className="relative flex h-full w-full items-center justify-center">
           <span
             className={`h-3 w-3 rounded-full ${isPrimary ? "bg-accent-400" : "bg-ink-500"} relative z-10`}
           />
@@ -16,7 +16,9 @@ export function ExperienceCard({ experience, index }) {
       </div>
 
       <Reveal
-        delay={index * 0.1 + 0.05}
+        direction="left"
+        x={16}
+        delay={index * 0.15 + 0.1}
         className={`rounded-2xl border bg-white/[0.02] p-6 sm:p-8 mb-14 ${
           isPrimary ? "border-white/10" : "border-white/6"
         }`}
@@ -45,7 +47,7 @@ export function ExperienceCard({ experience, index }) {
           {experience.stack.map((tech) => (
             <span
               key={tech}
-              className="rounded-full border border-white/8 bg-white/[0.03] px-3 py-1 text-xs text-ink-200"
+              className="rounded-full border border-white/8 bg-white/[0.03] px-3 py-1 text-xs text-ink-200 transition-colors duration-300 hover:border-accent-400/30 hover:bg-white/5 hover:text-ink-50"
             >
               {tech}
             </span>

@@ -28,11 +28,12 @@ export function Skills() {
               <Reveal
                 key={group.title}
                 delay={index * 0.06}
-                className="rounded-2xl border border-white/8 bg-white/[0.02] p-6 hover:border-white/15 transition-colors duration-300"
+                className="group rounded-2xl border border-white/8 bg-white/[0.02] p-6 transition-colors duration-300 hover:border-white/15 hover:bg-white/[0.03]"
               >
                 <div className="flex items-center gap-2.5 mb-4">
-                  <span className="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-accent-500/10 text-accent-300">
-                    <Icon size={17} strokeWidth={1.75} />
+                  <span className="relative inline-flex h-9 w-9 items-center justify-center rounded-lg bg-accent-500/10 text-accent-300 transition-all duration-300 group-hover:-translate-y-0.5 group-hover:bg-accent-500/20 group-hover:text-accent-200">
+                    <span className="pointer-events-none absolute -inset-1.5 rounded-full bg-accent-400/25 opacity-0 blur-md transition-opacity duration-300 group-hover:opacity-100" />
+                    <Icon size={17} strokeWidth={1.75} className="relative" />
                   </span>
                   <h3 className="font-semibold text-ink-50">{group.title}</h3>
                 </div>
@@ -40,7 +41,7 @@ export function Skills() {
                   {group.skills.map((skill) => (
                     <span
                       key={skill}
-                      className="rounded-lg border border-white/8 bg-white/[0.02] px-2.5 py-1.5 text-xs sm:text-sm text-ink-200 hover:border-accent-400/40 hover:text-ink-50 hover:bg-white/5 transition-colors"
+                      className="rounded-lg border border-white/8 bg-white/[0.02] px-2.5 py-1.5 text-xs sm:text-sm text-ink-200 transition-all duration-300 hover:-translate-y-0.5 hover:border-accent-400/40 hover:bg-white/5 hover:text-ink-50 hover:shadow-[0_4px_16px_-6px_rgba(129,140,248,0.5)]"
                     >
                       {skill}
                     </span>

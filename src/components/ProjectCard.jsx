@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { motion, useMotionValue, useReducedMotion, useSpring } from "framer-motion";
+import { motion, useMotionTemplate, useMotionValue, useReducedMotion, useSpring } from "framer-motion";
 import { ArrowUpRight, ExternalLink } from "lucide-react";
 import { Reveal } from "./Reveal";
 import { ProjectPreview } from "./ProjectPreview";
@@ -14,6 +14,10 @@ export function ProjectCard({ project, index, onOpen }) {
   const springRotateX = useSpring(rotateX, { stiffness: 250, damping: 22 });
   const springRotateY = useSpring(rotateY, { stiffness: 250, damping: 22 });
 
+  const spotlightX = useMotionValue(50);
+  const spotlightY = useMotionValue(50);
+  const spotlightBackground = useMotionTemplate`radial-gradient(420px circle at ${spotlightX}px ${spotlightY}px, rgba(129,140,248,0.14), transparent 70%)`;
+
   const handleMouseMove = (event) => {
     if (prefersReducedMotion || !cardRef.current) return;
     const rect = cardRef.current.getBoundingClientRect();
@@ -21,6 +25,8 @@ export function ProjectCard({ project, index, onOpen }) {
     const py = (event.clientY - rect.top) / rect.height - 0.5;
     rotateY.set(px * 6);
     rotateX.set(-py * 6);
+    spotlightX.set(event.clientX - rect.left);
+    spotlightY.set(event.clientY - rect.top);
   };
 
   const handleMouseLeave = () => {
@@ -37,10 +43,27 @@ export function ProjectCard({ project, index, onOpen }) {
         whileHover={{ y: -4 }}
         style={{ rotateX: springRotateX, rotateY: springRotateY, transformPerspective: 900 }}
         transition={{ duration: 0.25, ease: "easeOut" }}
-        className="group relative flex flex-col h-full rounded-2xl border border-white/8 bg-white/[0.02] p-5 sm:p-6 hover:border-accent-400/30 hover:bg-white/[0.035] transition-colors duration-300"
+        className="group relative flex flex-col h-full overflow-hidden rounded-2xl border border-white/8 bg-white/[0.02] p-5 sm:p-6 hover:border-accent-400/30 hover:bg-white/[0.035] transition-colors duration-300"
       >
-        <div className="mb-5">
-          <ProjectPreview type={project.preview} />
+        {!prefersReducedMotion && (
+          <motion.div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+            style={{ background: spotlightBackground }}
+          />
+        )}
+
+        <div className="relative mb-5 overflow-hidden rounded-xl">
+          <motion.div
+            initial={{ opacity: 0, y: 22 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.6, delay: index * 0.1 + 0.1, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <div className="transition-transform duration-500 ease-out group-hover:scale-[1.04]">
+              <ProjectPreview type={project.preview} />
+            </div>
+          </motion.div>
         </div>
 
         <div className="flex items-start justify-between gap-3 mb-2">
@@ -83,10 +106,11 @@ export function ProjectCard({ project, index, onOpen }) {
         <p className="text-sm text-ink-400 leading-relaxed mb-5 flex-1">{project.description}</p>
 
         <div className="flex flex-wrap gap-1.5 mb-5">
-          {project.stack.slice(0, 4).map((tech) => (
+          {project.stack.slice(0, 4).map((tech, i) => (
             <span
               key={tech}
-              className="rounded-md bg-white/5 px-2 py-1 text-[11px] font-mono text-ink-400 group-hover:text-ink-200 transition-colors"
+              style={{ transitionDelay: `${i * 30}ms` }}
+              className="rounded-md bg-white/5 px-2 py-1 text-[11px] font-mono text-ink-400 transition-all duration-300 group-hover:-translate-y-0.5 group-hover:text-ink-200"
             >
               {tech}
             </span>
@@ -102,10 +126,13 @@ export function ProjectCard({ project, index, onOpen }) {
           type="button"
           onClick={() => onOpen(project)}
           whileTap={{ scale: 0.96 }}
-          className="group/btn inline-flex items-center gap-1.5 text-sm font-medium text-ink-50 self-start"
+          className="group/btn relative inline-flex items-center gap-1.5 text-sm font-medium text-ink-50 self-start"
         >
           View details
-          <ArrowUpRight size={15} className="transition-transform group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5" />
+          <ArrowUpRight
+            size={15}
+            className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1"
+          />
         </motion.button>
       </motion.div>
     </Reveal>

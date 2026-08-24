@@ -19,7 +19,10 @@ export function Navbar() {
   };
 
   return (
-    <header
+    <motion.header
+      initial={{ opacity: 0, y: -12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay: 0.05, ease: [0.22, 1, 0.36, 1] }}
       className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
         scrolled
           ? "bg-base-950/80 backdrop-blur-md border-b border-white/5 py-3"
@@ -45,7 +48,7 @@ export function Navbar() {
                 href={`#${link.id}`}
                 onClick={handleNavigate(link.id)}
                 aria-current={activeId === link.id ? "true" : undefined}
-                className={`relative px-3.5 py-2 text-sm rounded-full transition-colors ${
+                className={`group relative px-3.5 py-2 text-sm rounded-full transition-colors ${
                   activeId === link.id
                     ? "text-ink-50"
                     : "text-ink-400 hover:text-ink-50"
@@ -59,6 +62,9 @@ export function Navbar() {
                   />
                 )}
                 <span className="relative">{link.label}</span>
+                {activeId !== link.id && (
+                  <span className="pointer-events-none absolute left-3.5 right-3.5 bottom-1 h-px origin-center scale-x-0 bg-gradient-to-r from-accent-400/70 via-accent-300/70 to-cyan-300/70 transition-transform duration-300 ease-out group-hover:scale-x-100" />
+                )}
               </a>
             </li>
           ))}
@@ -68,9 +74,9 @@ export function Navbar() {
           <motion.a
             href="#contact"
             onClick={handleNavigate("contact")}
-            whileHover={{ scale: 1.04 }}
+            whileHover={{ scale: 1.04, y: -1 }}
             whileTap={{ scale: 0.96 }}
-            className="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-medium text-ink-50 hover:bg-white/10 hover:border-white/20 transition-colors"
+            className="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-medium text-ink-50 transition-colors hover:bg-white/10 hover:border-white/20 hover:shadow-[0_0_16px_-4px_rgba(129,140,248,0.5)]"
           >
             Get In Touch
           </motion.a>
@@ -129,6 +135,6 @@ export function Navbar() {
           </motion.div>
         )}
       </AnimatePresence>
-    </header>
+    </motion.header>
   );
 }
