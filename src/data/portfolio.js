@@ -185,7 +185,6 @@ export const education = [
     fullName: "University School of Information, Communication & Technology",
     degree: "B.Tech — Electronics & Communication Engineering",
     period: "Nov 2022 – May 2026",
-    detail: "CGPA: 7.33 / 10",
     coursework: ["Data Structures & Algorithms", "DBMS", "Operating Systems", "Computer Networks", "OOP"],
     size: "primary",
   },
