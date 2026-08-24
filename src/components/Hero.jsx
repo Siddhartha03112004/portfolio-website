@@ -1,5 +1,5 @@
 import { motion, useMotionValue, useReducedMotion, useSpring } from "framer-motion";
-import { ArrowRight, Code2 } from "lucide-react";
+import { Code2, FileText } from "lucide-react";
 import { profile } from "../data/portfolio";
 import { HeroVisual } from "./HeroVisual";
 import { GithubIcon, LinkedinIcon } from "./icons";
@@ -90,14 +90,15 @@ export function Hero() {
 
           <motion.div variants={item} className="flex flex-wrap items-center gap-4 mb-9">
             <motion.a
-              href="#projects"
-              onClick={scrollTo("projects")}
+              href={profile.resumeUrl}
+              target="_blank"
+              rel="noreferrer noopener"
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
-              className="group inline-flex items-center gap-2 rounded-full bg-accent-500 px-5 py-3 text-sm font-medium text-white transition-colors hover:bg-accent-400 hover:shadow-[0_0_0_1px_rgba(255,255,255,0.1),0_8px_24px_-8px_rgba(99,102,241,0.6)]"
+              className="inline-flex items-center gap-2 rounded-full bg-accent-500 px-5 py-3 text-sm font-medium text-white transition-colors hover:bg-accent-400 hover:shadow-[0_0_0_1px_rgba(255,255,255,0.1),0_8px_24px_-8px_rgba(99,102,241,0.6)]"
             >
-              View Projects
-              <ArrowRight size={16} className="transition-transform group-hover:translate-x-0.5" />
+              <FileText size={16} />
+              Download Resume
             </motion.a>
             <motion.a
               href="#contact"

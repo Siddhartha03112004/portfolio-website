@@ -1,6 +1,4 @@
-import { motion } from "framer-motion";
-import { FileText } from "lucide-react";
-import { aboutHighlights, aboutStats, profile } from "../data/portfolio";
+import { aboutHighlights, aboutStats } from "../data/portfolio";
 import { AnimatedCounter } from "./AnimatedCounter";
 import { Reveal } from "./Reveal";
 import { SectionHeading } from "./SectionHeading";
@@ -44,18 +42,6 @@ export function About() {
                 </span>
               ))}
             </div>
-
-            <motion.a
-              href={profile.resumeUrl}
-              target="_blank"
-              rel="noreferrer noopener"
-              whileHover={{ scale: 1.03 }}
-              whileTap={{ scale: 0.97 }}
-              className="inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/5 px-5 py-2.5 text-sm font-medium text-ink-50 transition-colors hover:bg-white/10 hover:border-white/20 mt-2"
-            >
-              <FileText size={16} />
-              Download Resume
-            </motion.a>
           </Reveal>
 
           <div className="grid grid-cols-2 gap-4 content-start">
