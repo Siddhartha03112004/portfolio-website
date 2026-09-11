@@ -53,7 +53,7 @@ export const experiences = [
     id: "primrose",
     company: "Primrose Sphere Tech Pvt. Ltd.",
     role: "Full Stack Developer Intern",
-    period: "June 2026 – Present",
+    period: "June 2026 – September 2026",
     location: "Remote",
     size: "primary",
     summary:
@@ -172,7 +172,7 @@ export const skillGroups = [
 
 export const education = {
   degree: "B.Tech in Electronics & Communication Engineering",
-  cgpa: "7.33",
+  cgpa: "7.32",
   school: "University School of Information, Communication and Technology (USICT), GGSIPU",
   location: "Delhi, India",
   period: "Nov 2022 – May 2026",
