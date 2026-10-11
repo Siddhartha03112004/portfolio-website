@@ -30,7 +30,7 @@ export const navLinks = [
 ];
 
 export const aboutStats = [
-  { value: "250+", label: "LeetCode Problems" },
+  { value: "300+", label: "LeetCode Problems" },
   { value: "2026", label: "B.Tech Graduate" },
   { value: "Full-Stack", label: "Development" },
   { value: "3+", label: "Major Dev Experiences" },
